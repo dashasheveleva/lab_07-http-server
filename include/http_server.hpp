@@ -1,8 +1,8 @@
 // Copyright 2021 Your Name <your_email>
 
-#ifndef INCLUDE_EXAMPLE_HPP_
-#define INCLUDE_EXAMPLE_HPP_
+#ifndef INCLUDE_HTTP_SERVER_HPP_
+#define INCLUDE_HTTP_SERVER_HPP_
 
 auto example() -> void;
 
-#endif // INCLUDE_EXAMPLE_HPP_
+#endif // INCLUDE_HTTP_SERVER_HPP_
