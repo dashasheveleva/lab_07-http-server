@@ -21,7 +21,7 @@ HunterGate(
         SHA1 "35fa55bc1dfcf9f4d7264f8bb26cd1759ce1ae07"
 )
 
-project(lab_07)
+project(lab_07 VERSION 0.1.0)
 string(APPEND CMAKE_CXX_FLAGS " -pedantic -Werror -Wall -Wextra")
 string(APPEND CMAKE_CXX_FLAGS " -Wno-unused-command-line-argument")
 string(APPEND CMAKE_CXX_FLAGS " -Wshadow -Wnon-virtual-dtor")
@@ -48,8 +48,8 @@ hunter_add_package(nlohmann_json)
 find_package(nlohmann_json CONFIG REQUIRED)
 
 add_library(${PROJECT_NAME} STATIC
-        /sources/suggestion.cpp
-        /sources/JsonStorage.cpp)
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/suggestion.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/JsonStorage.cpp)
 
 add_executable(demo
         ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
