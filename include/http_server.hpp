@@ -19,6 +19,7 @@
 #include <vector>
 #include <fstream>
 #include <iomanip>
+#include <utility>
 
 #include "JsonStorage.hpp"
 #include "suggestion.hpp"
@@ -41,7 +42,7 @@ std::string make_json(const json& data) {
 // Эта функция создает HTTP-ответ для данного запроса.
 // Тип объекта ответа зависит от содержимого запроса, поэтому интерфейс требует,
 // чтобы вызывающий объект передал общую лямбду для получения ответа.
-template<class Body, class Allocator,class Send>
+template<class Body, class Allocator, class Send>
 void handle_request(
     beast::string_view doc_root,
     http::request<Body, http::basic_fields<Allocator>>&& req,
@@ -175,7 +176,7 @@ void do_session(net::ip::tcp::socket& socket,
     // Отправляем ответ
     handle_request(std::move(req), lambda, mutex, collection);
     if (ec) return fail(ec, "write");
-    if(close) {
+    if (close) {
       // Это означает, что мы должны закрыть соединение, обычно потому,
       // что ответ указывает семантику «Соединение: закрыть».
       break;
@@ -200,5 +201,4 @@ void do_session(net::ip::tcp::socket& socket,
   }
 }
 //------------------------------------------------------------------------------
-
 #endif // INCLUDE_HTTP_SERVER_HPP_
