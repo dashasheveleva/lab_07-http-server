@@ -21,60 +21,61 @@ HunterGate(
         SHA1 "35fa55bc1dfcf9f4d7264f8bb26cd1759ce1ae07"
 )
 
-
-# TODO: rename project and delete this comment
 project(lab_07)
 string(APPEND CMAKE_CXX_FLAGS " -pedantic -Werror -Wall -Wextra")
 string(APPEND CMAKE_CXX_FLAGS " -Wno-unused-command-line-argument")
 string(APPEND CMAKE_CXX_FLAGS " -Wshadow -Wnon-virtual-dtor")
 
+add_compile_definitions(JPATH="${CMAKE_CURRENT_SOURCE_DIR}/suggestions.json")
+
 hunter_add_package(Beast)
 find_package(Beast CONFIG REQUIRED)
-hunter_add_package(Boost COMPONENTS  thread filesystem)
-find_package(Boost CONFIG REQUIRED thread filesystem)
+
+hunter_add_package(Boost COMPONENTS
+        thread
+        filesystem
+        program_options)
+find_package(Boost CONFIG REQUIRED
+        thread
+        filesystem
+        program_options)
 find_package(Threads)
+
 hunter_add_package(GTest)
 find_package(GTest CONFIG REQUIRED)
+
 hunter_add_package(nlohmann_json)
 find_package(nlohmann_json CONFIG REQUIRED)
 
 add_library(${PROJECT_NAME} STATIC
-        # enum your files and delete this comment
-        sources/http_server.cpp
-        include/http_server.hpp)
-
-target_link_libraries(${PROJECT_NAME}
-        Beast::Beast
-        Boost::filesystem
-        Boost::thread
-        GTest::gmock_main
-        nlohmann_json::nlohmann_json
-        )
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/suggestion.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/JsonStorage.cpp)
 
 add_executable(demo
         ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
-        sources/http_server.cpp
-        include/http_server.hpp)
+        )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:include>"
         )
 
-target_link_libraries(demo ${PROJECT_NAME}
-        Beast::Beast
-        Boost::filesystem
+target_link_libraries(demo ${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME}
         Boost::thread
-        GTest::gmock_main
-        nlohmann_json::nlohmann_json)
-
+        Boost::filesystem
+        Boost::system
+        Beast::Beast
+        nlohmann_json::nlohmann_json
+        )
 
 if(BUILD_TESTS)
   add_executable(tests
-          # TODO: enum your files and delete this comment
           ${CMAKE_CURRENT_SOURCE_DIR}/tests/test.cpp
           )
-  target_link_libraries(tests ${PROJECT_NAME} GTest::gtest_main)
+  target_link_libraries(tests ${PROJECT_NAME}
+          GTest::gtest_main
+          GTest::gmock_main)
   enable_testing()
   add_test(NAME unit_tests COMMAND tests)
 endif()
@@ -83,6 +84,7 @@ if(BUILD_COVERAGE)
   set(ENABLE_COVERAGE ON CACHE BOOL "Enable coverage build." FORCE)
   list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/tools/coverage/cmake")
   find_package(codecov)
+  string(APPEND CMAKE_CXX_FLAGS " --coverage")
   add_coverage(${PROJECT_NAME})
   add_coverage(tests)
   coverage_evaluate()
