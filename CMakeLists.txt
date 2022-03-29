@@ -48,8 +48,8 @@ hunter_add_package(nlohmann_json)
 find_package(nlohmann_json CONFIG REQUIRED)
 
 add_library(${PROJECT_NAME} STATIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/sources/suggestion.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/sources/JsonStorage.cpp)
+        /sources/suggestion.cpp
+        /sources/JsonStorage.cpp)
 
 add_executable(demo
         ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
