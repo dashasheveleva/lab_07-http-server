@@ -1,7 +1,7 @@
 // Copyright 2022 Shevelyova Darya photodoshfy@gmail.com
 
-#ifndef LAB_07_JSONSTORAGE_HPP
-#define LAB_07_JSONSTORAGE_HPP
+#ifndef INCLUDE_JSONSTORAGE_HPP_
+#define INCLUDE_JSONSTORAGE_HPP_
 
 #include <iostream>
 #include <string>
@@ -20,4 +20,4 @@ class JsonStorage{
   std::string _filename; // Имя файла
 };
 
-#endif  // LAB_07_JSONSTORAGE_HPP
+#endif  // INCLUDE_JSONSTORAGE_HPP_

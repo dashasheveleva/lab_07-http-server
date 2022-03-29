@@ -1,7 +1,7 @@
 // Copyright 2022 Shevelyova Darya photodoshfy@gmail.com
 
-#ifndef LAB_07_SUGGESTION_HPP
-#define LAB_07_SUGGESTION_HPP
+#ifndef INCLUDE_SUGGESTION_HPP_
+#define INCLUDE_SUGGESTION_HPP_
 
 #include <iostream>
 #include <string>
@@ -19,4 +19,4 @@ class CallSuggestions{
   json _suggestions; // Предложения
 };
 
-#endif  // LAB_07_SUGGESTION_HPP
+#endif  // INCLUDE_SUGGESTION_HPP_
