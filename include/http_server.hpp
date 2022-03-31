@@ -131,8 +131,6 @@ void handle_request(http::request<Body, http::basic_fields<Allocator>>&& req,
 //------------------------------------------------------------------------------
 // Это эквивалент общей лямбда-выражения в C++11.
 // Объект функции используется для отправки HTTP-сообщения.
-// This is the C++11 equivalent of a generic lambda.
-// The function object is used to send an HTTP message.
 template<class Stream>
 struct send_lambda {
   Stream& stream_;

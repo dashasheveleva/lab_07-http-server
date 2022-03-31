@@ -15,14 +15,15 @@ int main(int argc, char *argv[]) {
 
   // Проверяем аргументы командной строки.
   try {
-    if (argc != 3) {
-      std::cerr << "Usage: suggestion_server <address> <port>\n"
+    if (argc != 4) {
+      std::cerr << "Usage: suggestion_server <address> <port> <doc_root>\n"
                 << "Example:\n"
                 << "    http-server-sync 0.0.0.0 8080\n";
       return EXIT_FAILURE;
     }
     auto const address = net::ip::make_address(argv[1]);
     auto const port = static_cast<uint16_t>(std::atoi(argv[2]));
+    auto const doc_root = std::make_shared<std::string>(argv[3]);
     // io_context требуется для всех операций ввода/вывода
     net::io_context ioc{1};
     // Акцептор получает входящие соединения
@@ -41,6 +42,7 @@ int main(int argc, char *argv[]) {
                       mutex)}.detach();
     }
   } catch (std::exception& e) {
+
     std::cerr << "Error: " << e.what() << std::endl;
     return EXIT_FAILURE;
   }
