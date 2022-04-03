@@ -1,5 +1,9 @@
 // Copyright 2022 Shevelyova Darya photodoshfy@gmail.com
 
+// cd CLionProjects/lab_07/cmake-build-debug/
+// ./demo 127.0.0.1 8080 /
+// curl  -H 'Content-Type: application/json' --data '{"input":"hel"}' http://localhost/v1/api/suggest
+
 #include <http_server.hpp>
 
 namespace po = boost::program_options;  // from <boost/program_options.hpp>
